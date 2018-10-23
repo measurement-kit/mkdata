@@ -113,7 +113,7 @@ int64_t mkdata_contains_valid_utf8(mkdata_t *data) {
   if (data == nullptr) return false;
   uint32_t codepoint{};
   uint32_t state{};
-  for (uint64_t i = 0; i < data->data.size(); ++i) {
+  for (size_t i = 0; i < data->data.size(); ++i) {
     (void)mkdata_decode_utf8(&state, &codepoint, (uint8_t)data->data[i]);
   }
   return state == UTF8_ACCEPT;
