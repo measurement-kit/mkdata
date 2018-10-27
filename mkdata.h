@@ -2,6 +2,7 @@
 #define MEASUREMENT_KIT_MKDATA_H
 
 #include <stdint.h>
+#include <stdlib.h>
 
 #ifdef __cplusplus
 extern "C" {
