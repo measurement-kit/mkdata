@@ -30,7 +30,7 @@ endif()
 list(APPEND MKDATA_LIBS Threads::Threads)
 link_libraries("${MKDATA_LIBS}")
 
-install(FILES mkdata.h DESTINATION include/measurement-kit)
+add_library(mkdata mkdata.cpp)
 
 # Testing
 # -------
@@ -38,6 +38,7 @@ install(FILES mkdata.h DESTINATION include/measurement-kit)
 set(BUILD_TESTING "ON" CACHE BOOL "Whether to build tests")
 if(${BUILD_TESTING})
   add_executable(unit-tests unit-tests.cpp)
+  target_link_libraries(unit-tests mkdata)
   enable_testing()
   add_test(NAME unit_tests COMMAND unit-tests)
 endif()

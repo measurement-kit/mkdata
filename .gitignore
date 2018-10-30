@@ -5,4 +5,5 @@
 /Testing/
 /catch.hpp
 /cmake_install.cmake
+/libmkdata.a
 /unit-tests
