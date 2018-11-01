@@ -18,7 +18,7 @@ typedef struct mkdata mkdata_t;
 mkdata_t *mkdata_new_nonnull(void);
 
 /// mkdata_set_v2 copies data from the provided vector into @p data. This
-/// function calls std::abort if passed null arguments.
+/// function calls abort if passed null arguments.
 void mkdata_set_v2(mkdata_t *data, const uint8_t *base, size_t count);
 
 /// mkdata_contains_valid_utf8_v2 tells you whether @p data contains valid
@@ -53,11 +53,11 @@ using mkdata_uptr = std::unique_ptr<mkdata_t, mkdata_deleter>;
 void mkdata_movein_data(mkdata_uptr &data, std::string &&s);
 
 /// mkdata_moveout_base64 converts to base64 and returns the result. It will
-/// call std::abort if passed null arguments.
+/// call abort if passed null arguments.
 std::string mkdata_moveout_base64(mkdata_uptr &data);
 
 /// mkdata_moveout_data moves the internal data into the returned string. It
-/// calls std::abort if passed null arguments.
+/// calls abort if passed null arguments.
 std::string mkdata_moveout_data(mkdata_uptr &data);
 
 #ifdef MKDATA_INLINE_IMPL
@@ -71,7 +71,7 @@ mkdata_t *mkdata_new_nonnull(void) { return new mkdata_t{}; }
 
 void mkdata_set_v2(mkdata_t *data, const uint8_t *base, size_t count) {
   if (data == nullptr || base == nullptr) {
-    std::abort();
+    abort();
   }
   data->data = std::string{(const char *)base, count};
   data->base64 = "";
@@ -120,7 +120,7 @@ mkdata_decode_utf8(uint32_t* state, uint32_t* codep, uint32_t byte) {
 
 int64_t mkdata_contains_valid_utf8_v2(mkdata_t *data) {
   if (data == nullptr) {
-    std::abort();
+    abort();
   }
   uint32_t codepoint{};
   uint32_t state{};
@@ -212,7 +212,7 @@ static inline std::string mkdata_b64_encode(const uint8_t *base, size_t len) {
 
 void mkdata_get_base64_v2(mkdata_t *data, const uint8_t **p, size_t *n) {
   if (data == nullptr || p == nullptr || n == nullptr) {
-    std::abort();
+    abort();
   }
   data->base64 = mkdata_b64_encode((const uint8_t *)data->data.c_str(),
                                    data->data.size());
@@ -224,7 +224,7 @@ void mkdata_delete(mkdata_t *data) { delete data; }
 
 void mkdata_movein_data(mkdata_uptr &data, std::string &&s) {
   if (data == nullptr) {
-    std::abort();
+    abort();
   }
   std::swap(s, data->data);
   data->base64 = "";
@@ -232,7 +232,7 @@ void mkdata_movein_data(mkdata_uptr &data, std::string &&s) {
 
 std::string mkdata_moveout_base64(mkdata_uptr &data) {
   if (data == nullptr) {
-    std::abort();
+    abort();
   }
   const uint8_t *base_ignored = nullptr;
   size_t length_ignored = 0;
@@ -242,7 +242,7 @@ std::string mkdata_moveout_base64(mkdata_uptr &data) {
 
 std::string mkdata_moveout_data(mkdata_uptr &data) {
   if (data == nullptr) {
-    std::abort();
+    abort();
   }
   return std::move(data->data);
 }
