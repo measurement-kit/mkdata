@@ -14,7 +14,7 @@ extern "C" {
 /// mkdata_t is a piece of possibly UTF-8 binary data
 typedef struct mkdata mkdata_t;
 
-/// mkdata_new creates a new mkdata_t instance
+/// mkdata_new_nonnull creates a new mkdata_t instance
 mkdata_t *mkdata_new_nonnull(void);
 
 /// mkdata_set_v2 copies data from the provided vector into @p data. This
