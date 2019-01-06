@@ -3,7 +3,7 @@
 #define CATCH_CONFIG_MAIN
 #include "catch.hpp"
 
-#include "mkdata.h"
+#include "mkdata.hpp"
 
 // clang-format off
 const uint8_t binary_input[] = {
@@ -23,16 +23,13 @@ const uint8_t binary_input[] = {
 
 TEST_CASE("mkdata allows to check whether input is UTF-8") {
   SECTION("for UTF-8 input") {
-    mkdata_uptr data{mkdata_new_nonnull()};
     std::string s = "Arturo Filastò vive a Leinì";  // (scusa)
-    mkdata_movein_data(data, std::move(s));
-    REQUIRE(mkdata_contains_valid_utf8_v2(data.get()));
+    REQUIRE(mk::data::contains_valid_utf8(s));
   }
 
   SECTION("for binary input") {
-    mkdata_uptr data{mkdata_new_nonnull()};
-    mkdata_set_v2(data.get(), binary_input, sizeof (binary_input));
-    REQUIRE(!mkdata_contains_valid_utf8_v2(data.get()));
+    REQUIRE(!mk::data::contains_valid_utf8(std::string{
+          (const char *)binary_input, sizeof(binary_input)}));
   }
 }
 
@@ -46,8 +43,7 @@ const char *binary_input_encoded =
 
 TEST_CASE("mkdata allows to encode binary input to base64") {
   SECTION("for binary input") {
-    mkdata_uptr data{mkdata_new_nonnull()};
-    mkdata_set_v2(data.get(), binary_input, sizeof (binary_input));
-    REQUIRE(mkdata_moveout_base64(data) == binary_input_encoded);
+    std::string data{(const char *)binary_input, sizeof(binary_input)};
+    REQUIRE(mk::data::base64_encode(std::move(data)) == binary_input_encoded);
   }
 }
