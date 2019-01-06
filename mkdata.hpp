@@ -22,6 +22,8 @@ std::string base64_encode(std::string data) noexcept;
 // MKDATA_INLINE_IMPL controls whether to include the inline implementation.
 #ifdef MKDATA_INLINE_IMPL
 
+#include <assert.h>
+
 namespace mk {
 namespace data {
 
