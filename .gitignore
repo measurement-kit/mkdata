@@ -1,9 +1,1 @@
-/CMakeCache.txt
-/CMakeFiles/
-/CTestTestfile.cmake
-/Makefile
-/Testing/
-/catch.hpp
-/cmake_install.cmake
-/libmkdata.a
-/unit-tests
+/build
