@@ -1,0 +1,19 @@
+name: mkdata
+
+docker: bassosimone/mk-debian
+
+dependencies:
+- github.com/catchorg/catch2
+
+targets:
+  libraries:
+    mkdata:
+      compile: [mkdata.cpp]
+  executables:
+    unit-tests:
+      compile: [unit-tests.cpp]
+      link: [mkdata]
+
+tests:
+  unit_tests:
+    command: unit-tests
