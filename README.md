@@ -7,3 +7,28 @@ binary data or UTF-8 data, and to base64 the string accordingly in case
 it does not contain UTF-8 data. Since this library is a basic building block
 of Measurement Kit, we don't plan on making any stable API guarantees for
 the code in here (i.e. we'll never release `v1.0.0`).
+
+## Regenerating build files
+
+Possibly edit `MKBuild.yaml`, then run:
+
+```
+go get -v github.com/measurement-kit/mkbuild
+mkbuild
+```
+
+## Building
+
+```
+mkdir build
+cd build
+cmake -GNinja ..
+cmake --build .
+ctest -a -j8 --output-on-failure
+```
+
+## Testing with docker
+
+```
+./docker.sh <build-type>
+```
